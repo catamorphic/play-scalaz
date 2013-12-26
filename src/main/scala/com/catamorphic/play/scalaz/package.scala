@@ -14,7 +14,7 @@ import play.api.libs.json._
 import play.api.data.validation._
 import java.net.URI
 
-package object scalaz {
+package object scalaz extends JsResultInstances {
   @inline def liftK[F[+_]: Monad, C, A](fa: F[A]): ReaderT[F, C, A] = fa.liftM[({type l[f[+_], a]=ReaderT[f, C, a]})#l]
   @inline def pointK[F[+_]: Monad, C, A](a: => A): ReaderT[F, C, A] = Monad[({type λ[α] = ReaderT[F, C, α]})#λ].point(a)
 
