@@ -2,7 +2,7 @@ scalaVersion := "2.10.3"
 
 organization := "com.catamorphic"
 
-name := "play-scalaz"
+name := "playz"
 
 version := "0.1.0-SNAPSHOT"
 
