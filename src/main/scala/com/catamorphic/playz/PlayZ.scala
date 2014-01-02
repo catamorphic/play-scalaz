@@ -1,6 +1,6 @@
 package com.catamorphic.playz
 
-import scala.concurrent._
+import scala.concurrent._, duration._
 
 import _root_.scalaz._
 import _root_.scalaz.Scalaz._
@@ -71,6 +71,9 @@ trait PlayZ extends JsResultInstances {
   type OptionAsyncWebResult[+A] = OptionT[AsyncWebResult, A]
 
   
+  @inline def runAsyncJs[T](v: AsyncJsResult[T], duration: Duration = Duration.Inf)(implicit context: ExecutionContext): JsErrors \/ T = 
+    Await.result(v.run, duration)
+
   def writeJson[T: Writes](t: T): JsValue = Json.toJson(t)
 
   val jsResultToEither = new (JsResult ~> JsResultZ) {
